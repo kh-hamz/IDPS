@@ -1,0 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #0f0f0f;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #1a1a1a;
+    border-bottom: 1px solid #333;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 60px;
+}
+
+.navbar-container {
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Brand/Logo */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.logo-icon {
+    font-size: 20px;
+    color: #60a5fa;
+}
+
+.brand-text {
+    font-weight: 600;
+}
+
+/* Navigation Links */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-link {
+    color: #9ca3af;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    background-color: #2a2a2a;
+}
+
+.nav-link.active {
+    color: #ffffff;
+    background-color: #374151;
+}
+
+/* Right Side Icons */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    color: #ffffff;
+    background-color: #2a2a2a;
+}
+
+.notification-btn {
+    position: relative;
+}
+
+/* User Avatar */
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.user-avatar:hover {
+    background-color: #6366f1;
+    transform: scale(1.05);
+}
+
+/* Main Content */
+.main-content {
+    min-height: calc(100vh - 60px);
+    padding: 20px;
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.page-container h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.page-container p {
+    color: #9ca3af;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 0 15px;
+    }
+    
+    .navbar-nav {
+        gap: 15px;
+    }
+    
+    .nav-link {
+        font-size: 13px;
+        padding: 6px 8px;
+    }
+    
+    .brand-text {
+        display: none;
+    }
+    
+    .page-container {
+        padding: 20px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-nav {
+        display: none;
+    }
+    
+    .navbar-container {
+        justify-content: space-between;
+    }
+}

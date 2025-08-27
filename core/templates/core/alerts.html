@@ -1,0 +1,136 @@
+{% extends 'core/navbar.html' %}
+{% load static %}
+
+{% block title %}Alerts - Sentinel{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/alerts.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="alerts-container">
+  
+  <!-- Header -->
+  <div class="alerts-header">
+    <h1>Alerts</h1>
+    <p>Comprehensive list of security alerts with filtering and sorting options.</p>
+  </div>
+
+  <!-- Filter Controls -->
+  <div class="filter-controls">
+    <button class="filter-btn" data-filter="severity">
+      <span>Severity</span>
+      <svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+      </svg>
+    </button>
+    <button class="filter-btn" data-filter="timestamp">
+      <span>Timestamp</span>
+      <svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+      </svg>
+    </button>
+    <button class="filter-btn" data-filter="source_ip">
+      <span>Source IP</span>
+      <svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+      </svg>
+    </button>
+    <button class="filter-btn" data-filter="destination_ip">
+      <span>Destination IP</span>
+      <svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+      </svg>
+    </button>
+    <button class="filter-btn" data-filter="description">
+      <span>Description</span>
+      <svg class="caret-icon" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Alerts Table -->
+  <div class="table-container">
+    <div class="table-wrapper">
+      <table class="alerts-table">
+        <thead>
+          <tr>
+            <th class="col-timestamp">Timestamp</th>
+            <th class="col-severity">Severity</th>
+            <th class="col-source-ip">Source IP</th>
+            <th class="col-destination-ip">Destination IP</th>
+            <th class="col-description">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for alert in alerts %}
+          <tr class="alert-row">
+            <td class="col-timestamp">{{ alert.timestamp|date:"Y-m-d H:i:s" }}</td>
+            <td class="col-severity">
+              <button class="severity-badge severity-{{ alert.severity|lower }}">
+                <span>{{ alert.severity|capfirst }}</span>
+              </button>
+            </td>
+            <td class="col-source-ip">{{ alert.source_ip }}</td>
+            <td class="col-destination-ip">{{ alert.destination_ip }}</td>
+            <td class="col-description">{{ alert.description }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5" class="no-alerts">No alerts found</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  {% if is_paginated %}
+  <div class="pagination-container">
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+        <a href="?page=1" class="page-btn">&laquo; First</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-btn">Previous</a>
+      {% endif %}
+      
+      <span class="page-info">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      </span>
+      
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="page-btn">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="page-btn">Last &raquo;</a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filterType = this.getAttribute('data-filter');
+            // Add your filtering logic here
+            console.log('Filter by:', filterType);
+        });
+    });
+
+    // Severity badge click handling
+    const severityBadges = document.querySelectorAll('.severity-badge');
+    
+    severityBadges.forEach(badge => {
+        badge.addEventListener('click', function() {
+            // Add your severity filtering logic here
+            console.log('Filter by severity:', this.textContent.trim());
+        });
+    });
+});
+</script>
+{% endblock %}

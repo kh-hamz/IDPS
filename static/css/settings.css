@@ -1,0 +1,340 @@
+/* General container */
+.settings-container {
+  max-width: 1200px;
+  padding: 40px 20px;
+  margin: 0 auto;
+  background-color: #111418;
+  color: #9cabba;
+  min-height: 100vh;
+  font-family: 'Inter', 'Noto Sans', sans-serif;
+}
+
+/* Header */
+.settings-header {
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.settings-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.settings-header p {
+  color: #9cabba;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Section */
+.section {
+  margin-bottom: 2rem;
+}
+
+.section h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  padding: 1.25rem 1rem 0.75rem 1rem;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+/* Rule Updates */
+.rule-update-item {
+  background-color: #111418;
+  padding: 0.5rem 1rem;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.rule-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+}
+
+.rule-details {
+  flex: 1;
+}
+
+.rule-title {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.4;
+}
+
+.last-updated {
+  color: #9cabba;
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.rule-action {
+  flex-shrink: 0;
+}
+
+/* Table Container */
+.table-container {
+  padding: 0 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.table-wrapper {
+  overflow: hidden;
+  border-radius: 0.5rem;
+  border: 1px solid #3b4754;
+  background-color: #111418;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table thead tr {
+  background-color: #1b2127;
+}
+
+.user-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.user-table th:last-child {
+  color: #9cabba;
+}
+
+.user-table tbody tr {
+  border-top: 1px solid #3b4754;
+}
+
+.user-table td {
+  height: 72px;
+  padding: 0.5rem 1rem;
+  color: #9cabba;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  vertical-align: middle;
+}
+
+.no-users {
+  text-align: center;
+  color: #9cabba;
+  font-style: italic;
+}
+
+/* Status Button */
+.status-btn {
+  display: flex;
+  min-width: 84px;
+  max-width: 480px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  height: 2rem;
+  padding: 0 1rem;
+  background-color: #283039;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  border: none;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.status-btn:hover {
+  background-color: #364552;
+}
+
+.status-active {
+  background-color: #283039;
+}
+
+.status-inactive {
+  background-color: #283039;
+}
+
+/* Action Link */
+.action-link {
+  color: #9cabba;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.action-link:hover {
+  color: #ffffff;
+}
+
+/* Section Actions */
+.section-actions {
+  display: flex;
+  padding: 0.75rem 1rem;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+
+/* Buttons */
+.btn {
+  display: flex;
+  min-width: 84px;
+  max-width: 480px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary {
+  height: 2.5rem;
+  background-color: #283039;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #364552;
+}
+
+.btn-secondary {
+  height: 2rem;
+  background-color: #283039;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.btn-secondary:hover {
+  background-color: #364552;
+}
+
+/* Form Groups */
+.form-group {
+  max-width: 480px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.form-select {
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+  resize: none;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  color: #ffffff;
+  border: 1px solid #3b4754;
+  background-color: #1b2127;
+  height: 3.5rem;
+  padding: 0.9375rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27rgb(156,171,186)%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e');
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 24px 24px;
+  appearance: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #3b4754;
+  background-color: #1b2127;
+}
+
+.form-select:hover {
+  border-color: #4a5568;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .settings-container {
+    padding: 1rem 2rem;
+  }
+  
+  .settings-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .section h2 {
+    font-size: 1.25rem;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+  }
+  
+  .rule-update-item,
+  .table-container,
+  .section-actions,
+  .form-group {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .rule-info {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .user-table th,
+  .user-table td {
+    padding: 0.5rem;
+  }
+  
+  .section-actions {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-container {
+    padding: 1rem;
+  }
+  
+  .user-table th:nth-child(3),
+  .user-table td:nth-child(3) {
+    display: none;
+  }
+}

@@ -1,0 +1,149 @@
+{% extends 'core/navbar.html' %} {% load static %} {% block title %}Reports -
+Sentinel{% endblock %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/reports.css' %}" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+{% endblock %} {% block content %}
+<div class="reports-container">
+  <!-- Header -->
+  <div class="reports-header">
+    <h1>Network Activity Summary</h1>
+    <p class="subtitle">
+      Real-time overview of network security events and system health.
+    </p>
+
+<!-- Summary Cards -->
+<div class="summary-cards">
+  <div class="summary-card">
+    <div class="card-label">Active Alerts</div>
+    <div class="card-value">{{ alert_count }}</div>
+  </div>
+  <div class="summary-card">
+    <div class="card-label">Total Traffic</div>
+    <div class="card-value">5.2 GB</div>
+  </div>
+  <div class="summary-card">
+    <div class="card-label">Blocked Connections</div>
+    <div class="card-value">{{ blocked_count }}</div>
+  </div>
+</div>
+
+
+<!-- Real-Time Alerts Table -->
+<div class="section">
+    <h2>Real-Time Alerts</h2>
+    <div class="alerts-table-container">
+        <table class="alerts-table">
+            <thead>
+                <tr>
+                    <th>Local Time</th>
+                    <th>UTC Time</th>
+                    <th>Source IP</th>
+                    <th>Destination IP</th>
+                    <th>Protocol</th>
+                    <th>Port</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for packet in packets %}
+                <tr>
+                    <td>{{ packet.local_time }}</td>
+                    <td>{{ packet.utc_time }}</td>
+                    <td>{{ packet.source_ip }}</td>
+                    <td>{{ packet.destination_ip }}</td>
+                    <td>{{ packet.protocol }}</td>
+                    <td>{{ packet.port }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+  <!-- Key Metrics -->
+  <div class="section">
+        <h2>Key Metrics</h2>
+        <div class="metrics-container">
+<!-- Network Traffic Chart -->
+<div class="metric-card traffic-chart-card">
+    <div class="metric-header">
+        <h3>Network Traffic Over Time</h3>
+        <div class="metric-value">
+            <span class="change positive">Last 24 Hours</span>
+        </div>
+    </div>
+    {% comment %} <div class="chart-inner">
+        <div class="chart-title">Traffic Volume Over Time</div>
+        <div class="chart-container">
+            {{ traffic_chart_html|safe }}
+        </div>
+        <div class="chart-timeline">
+            <span>00:00</span>
+            <span>04:00</span>
+            <span>08:00</span>
+            <span>12:00</span>
+            <span>16:00</span>
+            <span>20:00</span>
+            <span>24:00</span>
+        </div>
+    </div> {% endcomment %}
+        <div class="chart-inner">
+        <div class="chart-title">Traffic Volume Over Time</div>
+        <div class="chart-container" style="width: 100%;">
+            {{ traffic_chart_html|safe }}
+        </div>
+    </div>
+</div>
+
+
+            <!-- Alerts by Severity -->
+            <div class="metric-card alerts-chart-card">
+                <div class="metric-header">
+                    <h3>Alerts by Severity</h3>
+                    <div class="metric-value">
+                        <span class="change negative">Last 24 Hours</span>
+                    </div>
+                </div>
+                <div class="severity-bars">
+                    <div class="severity-bar">
+                        <div class="bar-container">
+                            <div class="bar bar-high" style="height: 70%"></div>
+                        </div>
+                        <span class="bar-label">High</span>
+                    </div>
+                    <div class="severity-bar">
+                        <div class="bar-container">
+                            <div class="bar bar-medium" style="height: 90%"></div>
+                        </div>
+                        <span class="bar-label">Medium</span>
+                    </div>
+                    <div class="severity-bar">
+                        <div class="bar-container">
+                            <div class="bar bar-low" style="height: 85%"></div>
+                        </div>
+                        <span class="bar-label">Low</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Remove Chart.js code since using Plotly CSV data
+// Add Plotly responsiveness if needed
+document.addEventListener('DOMContentLoaded', function() {
+    // Make Plotly charts responsive
+    const plotlyCharts = document.querySelectorAll('.plotly-graph-div');
+    plotlyCharts.forEach(chart => {
+        const observer = new ResizeObserver(entries => {
+            if (window.Plotly && window.Plotly.Plots) {
+                window.Plotly.Plots.resize(chart);
+            }
+        });
+        observer.observe(chart.parentElement);
+    });
+});
+</script>
+{% endblock %}

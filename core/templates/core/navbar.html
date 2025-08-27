@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sentinel{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <div class="navbar-brand">
+                <div class="logo-icon">◆</div>
+                <span class="brand-text">Sentinel</span>
+            </div>
+            
+            <!-- Navigation Links -->
+            <div class="navbar-nav">
+                <a href="{% url 'core:dashboard' %}" 
+                   class="nav-link {% if current_page == 'dashboard' %}active{% endif %}">
+                    Dashboard
+                </a>
+                <a href="{% url 'core:alerts' %}" 
+                   class="nav-link {% if current_page == 'alerts' %}active{% endif %}">
+                    Alerts
+                </a>
+                <a href="{% url 'core:reports' %}" 
+                   class="nav-link {% if current_page == 'reports' %}active{% endif %}">
+                    Reports
+                </a>
+                <a href="{% url 'core:settings' %}" 
+                   class="nav-link {% if current_page == 'settings' %}active{% endif %}">
+                    Settings
+                </a>
+            </div>
+            
+            <!-- Right Side Icons -->
+            <div class="navbar-right">
+                <button class="icon-btn notification-btn" title="Notifications">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                </button>
+                
+                <div class="user-menu">
+                    <button class="user-avatar" title="User Menu">
+                        {% if user and user.is_authenticated %}
+                            {{ user.first_name|first|default:user.username|first|upper }}
+                        {% else %}
+                            U
+                        {% endif %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,216 @@
+{% extends 'core/navbar.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Network Security{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="layout-container">
+  <div class="content-wrapper">
+    
+    <!-- Header Section -->
+    <div class="header-section">
+      <div class="header-content">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-description">Overview of network activity and security status</p>
+      </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="stats-section">
+      {% for stat in dashboard_stats %}
+      <div class="stat-card">
+        <p class="stat-label">{{ stat.label }}</p>
+        <p class="stat-value">{{ stat.value }}</p>
+        <p class="stat-change stat-change-{{ stat.change_type }}">{{ stat.change }}</p>
+      </div>
+      {% empty %}
+      <div class="stat-card">
+        <p class="stat-label">No data available</p>
+        <p class="stat-value">--</p>
+        <p class="stat-change">--</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Network Traffic Section -->
+    <h2 class="section-title">Network Traffic</h2>
+    
+    <div class="charts-section">
+      <!-- Traffic Volume Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <p class="chart-title">Traffic Volume Over Time</p>
+          <p class="chart-value">{{ traffic_volume.current|default:"0 GB" }}</p>
+          <div class="chart-meta">
+            <p class="chart-period">{{ traffic_volume.period|default:"Last 24 Hours" }}</p>
+            <p class="chart-change chart-change-{{ traffic_volume.change_type|default:'neutral' }}">
+              {{ traffic_volume.change|default:"0%" }}
+            </p>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <!-- Chart will be populated by JavaScript -->
+          <div class="chart-placeholder" id="traffic-chart">
+            <p>Loading chart...</p>
+          </div>
+          
+          <!-- Time labels -->
+          <div class="chart-labels">
+            {% for label in traffic_volume.time_labels %}
+            <p class="time-label">{{ label }}</p>
+            {% empty %}
+            <p class="time-label">00:00</p>
+            <p class="time-label">04:00</p>
+            <p class="time-label">08:00</p>
+            <p class="time-label">12:00</p>
+            <p class="time-label">16:00</p>
+            <p class="time-label">20:00</p>
+            <p class="time-label">24:00</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Applications Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <p class="chart-title">Top Applications by Bandwidth</p>
+          <p class="chart-value">{{ bandwidth_usage.total|default:"0 GB" }}</p>
+          <div class="chart-meta">
+            <p class="chart-period">{{ bandwidth_usage.period|default:"Last 24 Hours" }}</p>
+            <p class="chart-change chart-change-{{ bandwidth_usage.change_type|default:'neutral' }}">
+              {{ bandwidth_usage.change|default:"0%" }}
+            </p>
+          </div>
+        </div>
+        
+        <div class="bar-chart-container">
+          {% for app in top_applications %}
+          <div class="bar-item">
+            <div class="bar" style="height: {{ app.percentage }}%;"></div>
+            <p class="bar-label">{{ app.name }}</p>
+          </div>
+          {% empty %}
+          <div class="bar-item">
+            <div class="bar" style="height: 50%;"></div>
+            <p class="bar-label">App 1</p>
+          </div>
+          <div class="bar-item">
+            <div class="bar" style="height: 60%;"></div>
+            <p class="bar-label">App 2</p>
+          </div>
+          <div class="bar-item">
+            <div class="bar" style="height: 80%;"></div>
+            <p class="bar-label">App 3</p>
+          </div>
+          <div class="bar-item">
+            <div class="bar" style="height: 100%;"></div>
+            <p class="bar-label">App 4</p>
+          </div>
+          <div class="bar-item">
+            <div class="bar" style="height: 40%;"></div>
+            <p class="bar-label">App 5</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Events Section -->
+    <h2 class="section-title">Security Events</h2>
+    
+    <div class="events-section">
+      <div class="events-table-container">
+        <table class="events-table">
+          <thead>
+            <tr class="table-header">
+              <th class="col-timestamp">Timestamp</th>
+              <th class="col-severity">Severity</th>
+              <th class="col-event-type">Event Type</th>
+              <th class="col-source-ip">Source IP</th>
+              <th class="col-destination-ip">Destination IP</th>
+              <th class="col-description">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for event in security_events %}
+            <tr class="table-row">
+              <td class="col-timestamp">{{ event.timestamp|date:"Y-m-d H:i:s" }}</td>
+              <td class="col-severity">
+                <button class="severity-badge severity-{{ event.severity|lower }}">
+                  <span class="severity-text">{{ event.severity|capfirst }}</span>
+                </button>
+              </td>
+              <td class="col-event-type">{{ event.event_type }}</td>
+              <td class="col-source-ip">{{ event.source_ip }}</td>
+              <td class="col-destination-ip">{{ event.destination_ip }}</td>
+              <td class="col-description">{{ event.description }}</td>
+            </tr>
+            {% empty %}
+            <tr class="table-row">
+              <td colspan="6" class="no-events">No security events found</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pagination for Events -->
+    {% if is_paginated %}
+    <div class="pagination-section">
+      <div class="pagination">
+        {% if page_obj.has_previous %}
+          <a href="?page=1" class="page-btn">&laquo; First</a>
+          <a href="?page={{ page_obj.previous_page_number }}" class="page-btn">Previous</a>
+        {% endif %}
+        
+        <span class="page-info">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+        
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}" class="page-btn">Next</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}" class="page-btn">Last &raquo;</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Chart initialization - you can populate with actual data
+    const trafficData = {{ traffic_chart_data|safe }};
+    
+    if (trafficData && trafficData.length > 0) {
+        renderTrafficChart(trafficData);
+    }
+    
+    // Auto-refresh functionality
+    const refreshInterval = {{ refresh_interval|default:30000 }};
+    if (refreshInterval > 0) {
+        setInterval(function() {
+            location.reload();
+        }, refreshInterval);
+    }
+});
+
+function renderTrafficChart(data) {
+    // Implement your chart rendering logic here
+    // You can use Chart.js, D3.js, or any other charting library
+    const chartContainer = document.getElementById('traffic-chart');
+    
+    if (chartContainer) {
+        chartContainer.innerHTML = '<p>Chart rendered with ' + data.length + ' data points</p>';
+    }
+}
+</script>
+{% endblock %}
